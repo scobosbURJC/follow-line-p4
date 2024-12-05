@@ -53,7 +53,7 @@ void obstacleRead(void *params) {
     delayMicroseconds(TRIG_DELAY);
     digitalWrite(TRIG_PIN, LOW);
     
-    dist = (pulseIn(ECHO_PIN, HIGH) / 2) * 0.0343;
+    dist = (pulseIn(ECHO_PIN, HIGH) / 2) * SOUND_SPEED; // Unit: cm
 
     Serial.print("dist: ");
     Serial.println(dist);
