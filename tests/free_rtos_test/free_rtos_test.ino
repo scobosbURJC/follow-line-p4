@@ -8,8 +8,8 @@
 #define PIN_RBGLED 4
 #define NUM_LEDS 1
 
-#define PERIOD_US_TASK 200
-#define PERIOD_BLINK_TASK 1000
+#define PERIOD_US_TASK 150
+#define PERIOD_BLINK_TASK 100
 
 CRGB leds[NUM_LEDS];
 volatile byte led_state;
@@ -46,7 +46,7 @@ void setup() {
     ,  "Blink"   // A name just for humans
     ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
-    ,  2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    ,  1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,  NULL );
 
   xTaskCreate(
@@ -54,7 +54,7 @@ void setup() {
     ,  "UsRead"
     ,  128  // Stack size
     ,  NULL
-    ,  1  // Priority
+    ,  2  // Priority
     ,  NULL );
 
   // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.

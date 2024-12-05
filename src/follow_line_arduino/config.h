@@ -27,11 +27,15 @@
 #define PIN_Motor_BIN_1 8
 // PIN_Motor_PWMB: Analog output [0-255]. It provides speed.
 #define PIN_Motor_PWMB 6
+
+// Neopixel
+#define PIN_RBGLED 4
 // ------------------------------------------
 
-// ----------- RGB COLORS ----------------
+// --------- NEOPIXEL UTILS --------------
 #define RED {255,0,0}
 #define GREEN {0,255,0}
+#define NUM_LEDS 1
 // ---------------------------------------
 
 // ----------- ULTRASONIC UTILS --------------
@@ -39,5 +43,9 @@
 #define SOUND_SPEED 0.0343 // Unit: cm/us
 #define TRIG_DELAY 10 // Unit: us
 // -------------------------------------------
+
+// --------- TASKS CONFIG ------------
+#define OBSTACLE_TASK_PERIOD 150
+// -----------------------------------
 
 #endif CONFIG_H
