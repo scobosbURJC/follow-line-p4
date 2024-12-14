@@ -1,7 +1,6 @@
 #include <WiFi.h>
 #include "WiFiClientSecure.h"
-#include "Adafruit_MQTT.h"
-//#include "Adafruit_MQTT_Client.h"
+#include <ArduinoMqttClient.h>
 
 #include "credentials.h"
 #include "../serial_comms/comms.h"
@@ -9,6 +8,16 @@
 #include "config.h"
 
 #define CONNECT_TO_EDUROAM false
+
+// +++++++++++++ FUNCTIONS DECLARATION ++++++++++++
+void connect_wifi();
+
+// +++++++++++++ GLOBAL VARIABLES ++++++++++++++++
+WiFiClient wifi_client;
+
+MqttClient mqtt_client(&wifi_client);
+
+//mqtt_publisher(&mqtt_client, TOPIC);
 
 // +++++++++++++ FUNCTIONS DEFINITION ++++++++++++
 void connect_wifi() {
@@ -33,10 +42,12 @@ void connect_wifi() {
   TRACE_LN("");
 }
 
+
 // +++++++++++++ MAIN PROGRAM ++++++++++++++
 void setup() {
-  Serial.begin(BAUD_RATE); // De momemto para las trazas
-  delay(10);
+  Serial.begin(TRACE_BAUD_RATE);
+  
+  while(!Serial);
 
   connect_wifi();
 
@@ -44,13 +55,33 @@ void setup() {
   TRACE("IP address: ");
   TRACE_LN(WiFi.localIP());
 
-  // TODO ENVIAR LA CONFIRMACIÓN, DEL WIFI CONECTADO, AL ARDUINO
+  while (!mqtt_client.connect(MQTT_BROKER, MQTT_PORT)) {
+    TRACE("MQTT connection failed! Error code = ");
+    TRACE_LN(mqtt_client.connectError());
+    TRACE_LN("Retrying to connect");
 
+    delay(MQTT_CONNECT_RETRY_DELAY);
+  }
+
+  // TODO ENVIAR LA CONFIRMACIÓN, DEL WIFI Y MQTT CONECTADO, AL ARDUINO
+  TRACE_LN("SUCCESSFULL CONNECTION!!!");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   yield();
 
-  
+  mqtt_client.poll();
+
+  TRACE("Sending message to topic: ");
+  TRACE_LN(TOPIC);
+
+  // send message, the Print interface can be used to set the message contents
+  mqtt_client.beginMessage(TOPIC);
+  mqtt_client.print("holaaaaaaa");
+  mqtt_client.endMessage();
+
+  TRACE_LN();
+
+  delay(500);
 }
