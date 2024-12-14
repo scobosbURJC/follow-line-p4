@@ -67,6 +67,7 @@ enum task_priorities {
   PING_PRIO,
   FOLLOW_LINE_PRIO,
   OBSTACLE_PRIO
+  
 };
 // -----------------------------------
 
