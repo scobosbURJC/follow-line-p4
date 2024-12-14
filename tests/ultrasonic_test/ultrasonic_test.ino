@@ -1,12 +1,11 @@
 // Pines ultrasonic
 #define TRIG_PIN 13  
 #define ECHO_PIN 12 
+#define TRIG_DELAY 10
 
 int calculate_dist() {
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(3);
   digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(TRIG_DELAY);
   digitalWrite(TRIG_PIN, LOW);
 
 

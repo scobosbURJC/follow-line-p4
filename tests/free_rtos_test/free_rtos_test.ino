@@ -8,8 +8,8 @@
 #define PIN_RBGLED 4
 #define NUM_LEDS 1
 
-#define PERIOD_US_TASK 150
-#define PERIOD_BLINK_TASK 100
+#define PERIOD_US_TASK 15
+#define PERIOD_BLINK_TASK 10
 
 CRGB leds[NUM_LEDS];
 volatile byte led_state;
@@ -29,7 +29,7 @@ void setup() {
   }
 
   FastLED.addLeds<NEOPIXEL, PIN_RBGLED>(leds, NUM_LEDS);
-  FastLED.setBrightness(20);
+  FastLED.setBrightness(0);
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
@@ -85,16 +85,18 @@ void TaskBlink(void *pvParameters)  // This is a task.
   TickType_t xLastWakeTime;
   unsigned long last, now;
 
+  int i = 0;
+
   last = 0;
+
+  FastLED.showColor(Color(255,0,0));
 
   while (1)
   {
     xLastWakeTime = xTaskGetTickCount();
 
-    now = millis();
-    Serial.print("blink: ");
-    Serial.println(now - last);
-    last = now;
+    FastLED.setBrightness(i%100);
+    i++;
 
     xTaskDelayUntil(&xLastWakeTime, PERIOD_BLINK_TASK / portTICK_PERIOD_MS);
   }
@@ -111,11 +113,6 @@ void TaskUsRead(void *pvParameters)  // This is a task.
   while (true)
   {
     xLastWakeTime = xTaskGetTickCount();
-
-    now = millis();
-    Serial.print("us: ");
-    Serial.println(now - last);
-    last = now;
 
     digitalWrite(TRIG_PIN, HIGH);
     delayMicroseconds(TRIG_DELAY_US);
