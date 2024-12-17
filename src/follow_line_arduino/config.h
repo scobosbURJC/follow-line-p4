@@ -59,15 +59,11 @@
 // --------------------------------
 
 // --------- TASKS CONFIG ------------
-#define OBSTACLE_TASK_PERIOD 5
-#define FOLLOW_LINE_TASK_PERIOD 30
+#define OBSTACLE_TASK_PERIOD 30
 
 enum task_priorities {
-  COMMS_PRIO = 0,
-  PING_PRIO,
-  FOLLOW_LINE_PRIO,
+  FOLLOW_LINE_PRIO = 2,
   OBSTACLE_PRIO
-  
 };
 // -----------------------------------
 
@@ -92,6 +88,6 @@ enum task_priorities {
 // -------------------------------------
 
 // -------- SERIAL CONFIG ----------
-
+#define INITIAL_COMMS_DELAY 10 // Unit: ms
 // ---------------------------------
 #endif CONFIG_H
