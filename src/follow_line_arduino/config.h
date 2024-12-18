@@ -58,19 +58,18 @@
 #define N_IR_SENSORS 3
 // --------------------------------
 
-// --------- TASKS CONFIG ------------
-#define OBSTACLE_TASK_PERIOD 30
-
-enum task_priorities {
-  FOLLOW_LINE_PRIO = 2,
-  OBSTACLE_PRIO
-};
-// -----------------------------------
-
 // --------- FOLLOW LINE UTILS ---------
-#define V_REF 180
-#define V_LOST 180
-#define V_MIN 10
+enum program_states {
+  FOLLOW_LINE = 0,
+  OBSTACLE_DETECTION,
+  END
+};
+
+#define OBSTACLE_INTERRUPTION_PERIOD 15
+
+#define V_REF 100
+#define V_LOST 200
+#define V_MIN 0
 
 // Line states [1 = black (line), 0 = white (no line)]       !!!!! SERGIO LEE ESTO !!!!!
 #define LEFT          "100"
@@ -81,10 +80,12 @@ enum task_priorities {
 #define RIGHT         "001"
 #define NO_LINE       "000"
 
-#define KP 0.095
-#define KD 0.05
+#define KP 0.12
+#define KD 0.015
 
 #define LED_BRIGHTNESS 20
+
+#define PERCENTAGE_MULTIPLIER 100.0
 // -------------------------------------
 
 // -------- SERIAL CONFIG ----------
