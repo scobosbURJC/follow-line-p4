@@ -6,9 +6,11 @@
 #include "../serial_comms/comms.h"
 #include "macros.h"
 #include "config.h"
-#include "json_msgs.h"
 
-#define CONNECT_TO_EDUROAM false
+#define CONNECT_TO_EDUROAM true
+
+const String TEAM_NAME("SS");
+const String ID("15");
 
 // +++++++++++++ FUNCTIONS DECLARATION ++++++++++++
 void connect_wifi();
@@ -49,35 +51,35 @@ void connect_wifi() {
 }
 
 String select_msg_to_send(struct protocol_msg* msg) {
+  String msg_str("{\"team_name\": \"" + TEAM_NAME + "\", \"id\": \"" + ID + "\", \"action\": \"");
   switch (msg->id) {
     case START_LAP:
-      return get_no_arg_action_msg(START_LAP_ACTION);
+      return msg_str + "START_LAP" + "\"" + "}";
       
     case END_LAP:
-      return get_time_action_msg(END_LAP_ACTION, (unsigned long) msg->arg);
+      return msg_str + "END_LAP" + "\"" + ", \"time\": " + (unsigned long) msg->arg + "}";
 
     case OBSTACLE_DETECTED:
-      return get_distance_action_msg(OBSTACLE_DETECTED_ACTION, (unsigned int) msg->arg);
+      return msg_str + "OBSTACLE_DETECTED" + "\"" + ", \"distance\": " + (int) msg->arg + "}";
 
     case LINE_LOST:
-      return get_no_arg_action_msg(LINE_LOST_ACTION);
+      return msg_str + "LINE_LOST" + "\"" + "}";
     
     case PING:
-      return get_time_action_msg(PING_ACTION, (unsigned long) msg->arg);
+      return msg_str + "PING" + "\""", \"time\": " + (unsigned long) msg->arg + "}";
 
     case INIT_LINE_SEARCH:
-      return get_no_arg_action_msg(INIT_LINE_SEARCH_ACTION);
+      return msg_str + "INIT_LINE_SEARCH" + "\"" + "}";
 
     case STOP_LINE_SEARCH:
-      return get_no_arg_action_msg(STOP_LINE_SEARCH_ACTION);
+      return msg_str + "STOP_LINE_SEARCH" + "\"" + "}";
 
     case LINE_FOUND:
-      return get_no_arg_action_msg(LINE_FOUND_ACTION);
+      return msg_str + "LINE_FOUND" + "\"" + "}";
 
     case VISIBLE_LINE:
-      return get_percentage_action_msg(VISIBLE_LINE_ACTION, (float) msg->arg);
+      return msg_str + "VISIBLE_LINE" + "\"" + ", \"time\": " + (float) msg->arg + "}";
   }
-
 }
 
 

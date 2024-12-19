@@ -4,7 +4,7 @@
 #include "FastLED.h"
 
 #include "config.h"
-#include "/home/scobosb/Escritorio/sist_emp/sistemas_empotrados/practicas/p4/follow-line-p4/src/serial_comms/comms.h"
+#include "/home/sergio/OneDrive/uni/3_Robotica/1Cuatri/sistemas_empotrados_y_de_tiempo_real/practicas/practicas_arduino/p4/follow-line-p4/src/serial_comms/comms.h"
 
 
 // +++++ VARIABLES +++++
@@ -62,7 +62,6 @@ void setup() {
   digitalWrite(PIN_Motor_AIN_1, HIGH);
   digitalWrite(PIN_Motor_BIN_1, HIGH);
 
-  set_led_color(0,0,MAX_RGB_COMPONENT_VALUE);
 
   program_state = FOLLOW_LINE;
   line_is_lost = false;
@@ -121,8 +120,6 @@ void loop() {
       } else if (line_state == RIGHT || line_state == CENTER_RIGHT) {
         last_turn_is_right = true;
       }
-
-      // !!!!! SERGIO !!!!! He puesto lo de que no haya línea porque estaba dando problemas con la nueva implementación usando los valores del IR
 
       vr = V_REF + (KP * ir_values[0]) + (KD * (ir_values[0] - right_error));
       vl = V_REF + (KP * ir_values[2]) + (KD * (ir_values[2] - left_error));

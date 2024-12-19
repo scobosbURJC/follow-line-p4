@@ -1,4 +1,4 @@
-#define WLAN_SSID "MOVISTAR_JAVI"
+#define WLAN_SSID "eduroam"
 #define WLAN_PASS "0796982000000"
 
 #define EAP_ANONYMOUS_IDENTITY "20220719anonymous@urjc.es" // leave as it is

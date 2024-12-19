@@ -40,7 +40,7 @@
 // ---------------------------------------
 
 // ----------- ULTRASONIC UTILS --------------
-#define OBSTACLE_DIST_LIMIT 8 // Unit: cm
+#define OBSTACLE_DIST_LIMIT 10 // Unit: cm
 #define SOUND_SPEED 0.0343 // Unit: cm/us
 #define TRIG_DELAY 10 // Unit: us 
 // -------------------------------------------
@@ -51,7 +51,7 @@
 // --------------------------------------
 
 // ---------- IR UTILS ------------
-#define IR_BLACK_THRESHOLD 200                    //  !!!!! NOTA PARA SERGIO !!!!! He cambiado esto por black threshold por lo de que se envía un valor alto cuando es negro, 
+#define IR_BLACK_THRESHOLD 500                   //  !!!!! NOTA PARA SERGIO !!!!! He cambiado esto por black threshold por lo de que se envía un valor alto cuando es negro, 
                                                   //                               entonces decimos que será negro si el valor devuelto es mayor que IR_BLACK_THRESHOLD
 
 #define IR_SENSORS_LIST {PIN_ITR20001_LEFT, PIN_ITR20001_MIDDLE, PIN_ITR20001_RIGHT}
@@ -67,8 +67,8 @@ enum program_states {
 
 #define OBSTACLE_INTERRUPTION_PERIOD 15
 
-#define V_REF 100
-#define V_LOST 200
+#define V_REF 50
+#define V_LOST 140
 #define V_MIN 0
 
 // Line states [1 = black (line), 0 = white (no line)]       !!!!! SERGIO LEE ESTO !!!!!
@@ -80,8 +80,9 @@ enum program_states {
 #define RIGHT         "001"
 #define NO_LINE       "000"
 
-#define KP 0.12
-#define KD 0.015
+#define KP 0.165
+#define KD 0.001
+// #define KD 0.015
 
 #define LED_BRIGHTNESS 20
 
